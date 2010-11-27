@@ -5,6 +5,8 @@ import java.awt.event.KeyEvent;
 
 public class GamePrefs implements Serializable
 {
+	private static final long serialVersionUID = 1L;
+	
 	private int leftKey=KeyEvent.VK_A;
 	private int rightKey=KeyEvent.VK_D;
 	private int upKey=KeyEvent.VK_W;

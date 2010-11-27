@@ -59,11 +59,10 @@ public class ObjectCollection
 	
 	public void updatePositions()
 	{
-		List<GameObject> potentialCollisions = new LinkedList<GameObject>();
-		boolean ulr = (this.xVelocity<0 || this.yVelocity>0);
-		boolean blr = (this.xVelocity<0 || this.yVelocity<0);
-		boolean urr = (this.xVelocity>0 || this.yVelocity>0);
-		boolean brr = (this.xVelocity>0 || this.yVelocity<0);
+		for (GameObject object : this.objects)
+		{
+			object.updatePosition(this.objects);
+		}
 	}
 	
 	private class PositionComparator implements Comparator<GameObject>

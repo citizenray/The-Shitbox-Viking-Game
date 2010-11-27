@@ -1,9 +1,40 @@
 package viking;
 
 import java.awt.Graphics;
-import java.awt.Image;
 
-public class PlatformScreen extends GameScreen
+public abstract class PlatformScreen extends GameScreen
 {
-	private Viking player;
+	public static final double BASE_GRAVITY = 0.2;
+	
+	protected Viking player;
+	protected ObjectCollection objects;
+	
+	public PlatformScreen()
+	{
+		this.objects=new ObjectCollection();
+	}
+	
+	public void update()
+	{
+		this.objects.sortForData();
+		for (GameObject object : this.objects.getObjects())
+		{
+			//object.impulse(0,BASE_GRAVITY);
+		}
+		this.objects.updatePositions();
+		this.objects.purgeDestroyed();
+		for (GameObject object : this.objects.getObjects())
+		{
+			object.update();
+		}
+	}
+	
+	public void render(Graphics g)
+	{
+		this.objects.sortForRender();
+		for (GameObject object : this.objects.getObjects())
+		{
+			object.draw(g);
+		}
+	}
 }

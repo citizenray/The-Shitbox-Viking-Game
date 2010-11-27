@@ -12,11 +12,11 @@ public abstract class GameObject
 	
 	protected boolean markedForDestruction=false;
 	protected boolean fixedPosition=false;
-	protected boolean isSolid=false;
+	protected boolean solid=true;
 	
 	protected double x;
 	protected double y;
-	protected int depth;
+	protected int depth=0;
 	protected double xVelocity=0;
 	protected double yVelocity=0;
 	
@@ -39,7 +39,7 @@ public abstract class GameObject
 	
 	public final void updatePosition(List<GameObject> allObjects)
 	{
-		if (this.isSolid)
+		if (!this.fixedPosition)
 		{
 			Rectangle theoreticalRect=new Rectangle((int)(this.x+this.xVelocity+this.boundingBox.x),(int)(this.y+this.yVelocity+this.boundingBox.y),this.boundingBox.width,this.boundingBox.height);
 			
@@ -77,6 +77,62 @@ public abstract class GameObject
 														  Math.abs((thisBox.x+thisBox.width)-otherBox.x));
 					double ySteps=this.yVelocity/Math.min(Math.abs(thisBox.y-(otherBox.y+otherBox.height)),
 														  Math.abs((thisBox.y+thisBox.height)-otherBox.y));
+					double minSteps=Math.min(xSteps,ySteps);
+					if (closest==null || steps>minSteps)
+					{
+						closest=other;
+						steps=minSteps;
+						if (steps==xSteps)
+						{
+							stopX=true;
+						}
+						else
+						{
+							stopX=false;
+						}
+						if (steps==ySteps)
+						{
+							stopY=true;
+						}
+						else
+						{
+							stopY=false;
+						}
+					}
+				}
+				
+				System.out.println("I TOTALLY DID A THING");
+				
+				if (stopX)
+				{
+					this.x+=steps*this.xVelocity;
+					if (!closest.isFixedPosition())
+					{
+						closest.impulse(COLLISION_COEFFICIENT*this.xVelocity,0);
+						if (!stopY)
+						{
+							closest.handleCollision(this);
+						}
+					}
+					this.xVelocity=0;
+				}
+				else
+				{
+					this.x+=this.xVelocity;
+				}
+				if (stopY)
+				{
+					this.y+=steps*this.yVelocity;
+					if (!closest.isFixedPosition())
+					{
+						closest.impulse(0,COLLISION_COEFFICIENT*this.yVelocity);
+						closest.handleCollision(this);
+					}
+					this.yVelocity=0;
+				}
+				else
+				{
+					this.y+=this.yVelocity;
 				}
 			}
 		}
@@ -102,7 +158,12 @@ public abstract class GameObject
 	
 	public final boolean isSolid()
 	{
-		return this.isSolid;
+		return this.solid;
+	}
+	
+	public final boolean isFixedPosition()
+	{
+		return this.fixedPosition;
 	}
 	
 	public void markForDestruction()
@@ -112,7 +173,7 @@ public abstract class GameObject
 	
 	public abstract void update();
 	
-	protected abstract void draw(Graphics g);
+	protected abstract void render(Graphics g);
 	
 	/**
 	 * returns true if shit should indicate damage
@@ -122,7 +183,7 @@ public abstract class GameObject
 		return false;
 	}
 	
-	public final void render(Graphics g)
+	public final void draw(Graphics g)
 	{
 		g.translate((int)this.x,(int)this.y);
 		this.render(g);

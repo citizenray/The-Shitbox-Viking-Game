@@ -48,7 +48,7 @@ public class MainApp implements ComponentListener,DataObject
 	{
 		this.prefs=prefs;
 		
-		GameScreen introScreen=new IntroScreen();
+		GameScreen introScreen=new TestScreen();
 		
 		this.canvas=new DoubleCanvas(null,null,GAME_WIDTH,GAME_HEIGHT,GAME_DELAY);
 		this.canvas.setLocation(0,0);
