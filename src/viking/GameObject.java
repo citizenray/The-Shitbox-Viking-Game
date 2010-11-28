@@ -73,11 +73,26 @@ public abstract class GameObject
 				for (GameObject other : colliding)
 				{
 					Rectangle otherBox=other.getCollisionBox();
-					double xSteps=this.xVelocity/Math.min(Math.abs(thisBox.x-(otherBox.x+otherBox.width)),
-														  Math.abs((thisBox.x+thisBox.width)-otherBox.x));
-					double ySteps=this.yVelocity/Math.min(Math.abs(thisBox.y-(otherBox.y+otherBox.height)),
-														  Math.abs((thisBox.y+thisBox.height)-otherBox.y));
-					double minSteps=Math.min(xSteps,ySteps);
+					double xSteps=Math.abs(Math.min(Math.abs(thisBox.x-(otherBox.x+otherBox.width)),
+										            Math.abs((thisBox.x+thisBox.width)-otherBox.x))
+										            / this.xVelocity);
+					double ySteps=Math.abs(Math.min(Math.abs(thisBox.y-(otherBox.y+otherBox.height)),
+													Math.abs((thisBox.y+thisBox.height)-otherBox.y))
+													/ this.yVelocity);
+														  
+					double minSteps;
+					if (this.xVelocity==0)
+					{
+						minSteps=ySteps;
+					}
+					else if (this.yVelocity==0)
+					{
+						minSteps=xSteps;
+					}
+					else
+					{
+						minSteps=Math.min(xSteps,ySteps);
+					}
 					if (closest==null || steps>minSteps)
 					{
 						closest=other;
@@ -100,8 +115,6 @@ public abstract class GameObject
 						}
 					}
 				}
-				
-				System.out.println("I TOTALLY DID A THING");
 				
 				if (stopX)
 				{
@@ -149,6 +162,11 @@ public abstract class GameObject
 			this.xVelocity+=xForce;
 			this.yVelocity+=yForce;
 		}
+	}
+	
+	public void applyFriction(double friction)
+	{
+		this.xVelocity*=friction;
 	}
 	
 	public final boolean isMarkedForDestruction()

@@ -17,7 +17,6 @@ public class TestScreen extends PlatformScreen
 		this.objects.add(this.player);
 		this.objects.add(new ArbitrarySolid(0,210,320,30));
 		this.bg=Loader.getImage("res/images/dungeon.png");
-		this.player.impulse(0,3);
 	}
 	
 	public void render(Graphics g)

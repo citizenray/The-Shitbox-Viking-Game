@@ -22,12 +22,9 @@ public class ArbitrarySolid extends GameObject
 	
 	public void render(Graphics g)
 	{
-		g.setColor(Color.BLUE);
-		g.fillRect(0,0,this.boundingBox.width,this.boundingBox.height);
 	}
 	
 	public void handleCollision(GameObject obj)
 	{
-		System.out.println("oh gosh");
 	}
 }
