@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import viking.objects.ArbitrarySolid;
+import viking.objects.SparkEffect;
 
 public class TestScreen extends PlatformScreen
 {
@@ -21,6 +22,8 @@ public class TestScreen extends PlatformScreen
 		this.objects.add(new ArbitrarySolid(10,174,48,8));
 		this.objects.add(new ArbitrarySolid(10,79,48,8));
 		this.objects.add(new ArbitrarySolid(250,84,48,8));
+		this.objects.add(new SparkEffect(214,215,90));
+		this.objects.add(new SparkEffect(190,160,0));
 		this.bg=Loader.getImage("res/images/2-2.png");
 	}
 	
