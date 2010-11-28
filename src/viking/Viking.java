@@ -3,7 +3,6 @@ package viking;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
-import java.awt.Color;
 
 public class Viking extends GameObject
 {
@@ -16,16 +15,16 @@ public class Viking extends GameObject
 	{
 		this.x=x;
 		this.y=y;
-		this.boundingBox=new Rectangle(0,0,22,31);
+		this.boundingBox=new Rectangle(0,0,17,31);
 		this.solid=true;
-		this.image=Loader.getImage("res/images/hagar.png");
+		this.image=Loader.getImage("res/images/bv.png");
 	}
 	
 	public void update()
 	{
 		KeyBank keys=MainApp.getApp().getKeyBank();
 		GamePrefs prefs=MainApp.getApp().getPrefs();
-		if (keys.getKeyDown(prefs.getJumpKey()) && keys.getStateNew(prefs.getJumpKey()))
+		if (keys.getKeyDown(prefs.getJumpKey()) && keys.getStateNew(prefs.getJumpKey()) && this.yVelocity==0)
 		{
 			this.impulse(0,-JUMP_VELOCITY);
 		}
@@ -41,6 +40,6 @@ public class Viking extends GameObject
 	
 	public void render(Graphics g)
 	{
-		g.drawImage(this.image,0,0,MainApp.getApp().getCanvas());
+		g.drawImage(this.image,-2,-3,MainApp.getApp().getCanvas());
 	}
 }

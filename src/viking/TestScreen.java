@@ -13,10 +13,15 @@ public class TestScreen extends PlatformScreen
 	public TestScreen()
 	{
 		super();
-		this.player=new Viking(40,10);
+		this.player=new Viking(100,10);
 		this.objects.add(this.player);
-		this.objects.add(new ArbitrarySolid(0,210,320,30));
-		this.bg=Loader.getImage("res/images/dungeon.png");
+		this.objects.add(new ArbitrarySolid(94,216,128,24));
+		this.objects.add(new ArbitrarySolid(94,152,96,16));
+		this.objects.add(new ArbitrarySolid(250,212,48,8));
+		this.objects.add(new ArbitrarySolid(10,174,48,8));
+		this.objects.add(new ArbitrarySolid(10,79,48,8));
+		this.objects.add(new ArbitrarySolid(250,84,48,8));
+		this.bg=Loader.getImage("res/images/2-2.png");
 	}
 	
 	public void render(Graphics g)
