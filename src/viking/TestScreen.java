@@ -1,9 +1,7 @@
 package viking;
 
 import java.awt.Graphics;
-import java.awt.Color;
 import java.awt.Image;
-import java.awt.event.KeyEvent;
 import viking.objects.ArbitrarySolid;
 import viking.objects.SparkEffect;
 

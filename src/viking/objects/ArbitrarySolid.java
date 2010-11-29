@@ -3,7 +3,6 @@ package viking.objects;
 import java.awt.Rectangle;
 import viking.GameObject;
 import java.awt.Graphics;
-import java.awt.Color;
 
 public class ArbitrarySolid extends GameObject
 {
